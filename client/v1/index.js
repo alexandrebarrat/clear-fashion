@@ -35,6 +35,10 @@ console.log(MY_FAVORITE_BRANDS[0]);
 // I can find on these e-shops
 // 2. Log the variable
 
+const cheapestTshirt = "https://www.faguo-store.com/fr/vetements/7606-arcy-t-shirt-en-coton-recycle-kaki.html"
+console.log(cheapestTshirt);
+
+
 /**
  * 👕
  * Easy 😁?
@@ -48,28 +52,79 @@ console.log(MY_FAVORITE_BRANDS[0]);
 // 1. Create a variable and assign it the number of products
 // 2. Log the variable
 
+const numberOfProducts = marketplace.length
+console.log(numberOfProducts)
+
 // 🎯 TODO 3: Brands name
 // 1. Create a variable and assign it the list of brands name only
 // 2. Log the variable
 // 3. Log how many brands we have
+
+var listeOfBrands = [];
+for(let i = 0;i<numberOfProducts;i++)
+{
+  listeOfBrands.push(marketplace[i]['brand']);
+}
+console.log(listeOfBrands);
 
 // 🎯 TODO 4: Sort by price
 // 1. Create a function to sort the marketplace products by price
 // 2. Create a variable and assign it the list of products by price from lowest to highest
 // 3. Log the variable
 
+var listeOfPrices = [];
+let floatPrice =0;
+for(let i = 0;i<numberOfProducts;i++)
+{ 
+  listeOfPrices.push(marketplace[i]['price']);
+}
+listeOfPrices = listeOfPrices.sort(function(a, b){return a-b});
+
+console.log(listeOfPrices);
+
 // 🎯 TODO 5: Sort by date
 // 1. Create a function to sort the marketplace objects by products date
 // 2. Create a variable and assign it the list of products by date from recent to old
 // 3. Log the variable
 
+var listOfDates = [];
+for(let i = 0;i<numberOfProducts;i++)
+{
+  listOfDates.push(marketplace[i]['released']);
+}
+listOfDates = listOfDates.sort(); 
+
+console.log(listOfDates);
+
 // 🎯 TODO 6: Filter a specific price range
 // 1. Filter the list of products between 50€ and 100€
 // 2. Log the list
 
+var filteredPrice = []
+let min = 50;
+let max = 100;
+for(let i = 0;i<listeOfPrices.length;i++)
+{
+  if((listeOfPrices[i]>min) && (listeOfPrices[i]<max))
+  {
+    filteredPrice.push(listeOfPrices[i]);
+  }
+}
+
+console.log(filteredPrice);
+
 // 🎯 TODO 7: Average price
 // 1. Determine the average price of the marketplace
 // 2. Log the average
+
+let somme = 0;
+for(let i = 0;i<listeOfPrices.length;i++)
+{
+  somme+=listeOfPrices[i];
+}
+let average = somme/listeOfPrices.length;
+
+console.log(average.toFixed(2));
 
 /**
  * 🏎
@@ -94,13 +149,86 @@ console.log(MY_FAVORITE_BRANDS[0]);
 // 2. Log the variable
 // 3. Log the number of products by brands
 
+const brandsName ={};
+var tempB;
+for (let i = 0;i<numberOfProducts;i++)
+{
+  tempB = marketplace[i]['brand'];
+  if(tempB in brandsName)
+  {
+    brandsName[tempB].push(marketplace[i]['name']);
+  }
+  else
+  {
+    brandsName[tempB] = [marketplace[i]['name']];
+  }
+}
+console.log(brandsName);
+
+const countBrands ={};
+for (const key of Object.keys(brandsName))
+{
+  countBrands[key] = 0;
+  for (const element of brandsName[key])
+  {
+    countBrands[key] +=1;
+  }
+}
+console.log(countBrands);
+
 // 🎯 TODO 9: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
 // 2. Log the sort
 
+const brandsPrice ={};
+var tempB;
+for (let i = 0;i<numberOfProducts;i++)
+{
+  tempB = marketplace[i]['brand'];
+  if(tempB in brandsPrice)
+  {
+    brandsPrice[tempB].push(marketplace[i]['price']);
+  }
+  else
+  {
+    brandsPrice[tempB] = [marketplace[i]['price']];
+  }
+}
+console.log(brandsPrice);
+
+const sortBrandsPrice ={}
+for (const key of Object.keys(brandsPrice))
+{
+  sortBrandsPrice[key] = brandsPrice[key].sort(function(a, b){return b-a});
+}
+console.log(sortBrandsPrice);
+
 // 🎯 TODO 10: Sort by date for each brand
 // 1. For each brand, sort the products by date, from old to recent
 // 2. Log the sort
+
+const brandsDate ={};
+var tempB;
+for (let i = 0;i<numberOfProducts;i++)
+{
+  tempB = marketplace[i]['brand'];
+  if(tempB in brandsDate)
+  {
+    brandsDate[tempB].push(marketplace[i]['released']);
+  }
+  else
+  {
+    brandsDate[tempB] = [marketplace[i]['released']];
+  }
+}
+console.log(brandsDate);
+
+const sortBrandsDate ={}
+for (const key of Object.keys(brandsPrice))
+{
+  sortBrandsDate[key] = (brandsDate[key].sort()).reverse();
+}
+console.log(sortBrandsDate);
 
 /**
  * 💶
@@ -112,6 +240,24 @@ console.log(MY_FAVORITE_BRANDS[0]);
 // 🎯 TODO 11: Compute the p90 price value
 // 1. Compute the p90 price value of each brand
 // The p90 value (90th percentile) is the lower value expected to be exceeded in 90% of the products
+
+const sortBrandsPriceRev ={}
+for (const key of Object.keys(brandsPrice))
+{
+  sortBrandsPriceRev[key] = brandsPrice[key].sort(function(a, b){return a-b});
+}
+console.log(sortBrandsPriceRev);
+
+let tempLength;
+let p90index;
+let p90value;
+for (const key of Object.keys(sortBrandsPriceRev))
+{ 
+  tempLength = sortBrandsPriceRev[key].length;
+  p90index = Math.floor(tempLength*0.1);
+  p90value = Object.values(sortBrandsPriceRev[key])[p90index];
+  console.log(p90value);
+}
 
 /**
  * 🧥
@@ -305,17 +451,73 @@ const COTELE_PARIS = [
 // // 1. Log if we have new products only (true or false)
 // // A new product is a product `released` less than 2 weeks.
 
+var today = new Date();
+console.log(today);
+
+let difference;
+let TotalDays;
+let dayReleased;
+let newReleased = 14;
+
+console.log(newReleased);
+for(let i=0;i<COTELE_PARIS.length;i++)
+{
+  dayReleased = new Date(COTELE_PARIS[i]['released']);
+  let difference = today.getTime() - dayReleased.getTime();
+  let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+  if(TotalDays<newReleased)
+  {
+    console.log(COTELE_PARIS[i]['name']);
+  }
+}
+
 // 🎯 TODO 2: Reasonable price
 // // 1. Log if coteleparis is a reasonable price shop (true or false)
 // // A reasonable price if all the products are less than 100€
+
+let reasonable = 100;
+
+console.log(reasonable);
+for(let i=0;i<COTELE_PARIS.length;i++)
+{
+  if(COTELE_PARIS[i]['price']<reasonable)
+  {
+    console.log(COTELE_PARIS[i]['name']);
+  }
+}
 
 // 🎯 TODO 3: Find a specific product
 // 1. Find the product with the uuid `2b9a47e3-ed73-52f6-8b91-379e9c8e526c`
 // 2. Log the product
 
+var uuidNum = "2b9a47e3-ed73-52f6-8b91-379e9c8e526c";
+
+console.log(uuidNum);
+for(let i=0;i<COTELE_PARIS.length;i++)
+{
+  if(COTELE_PARIS[i]['uuid']==uuidNum)
+  {
+    console.log(COTELE_PARIS[i]['name']);
+  }
+}
+
 // 🎯 TODO 4: Delete a specific product
 // 1. Delete the product with the uuid `2b9a47e3-ed73-52f6-8b91-379e9c8e526c`
 // 2. Log the new list of product
+
+var uuidNum = "2b9a47e3-ed73-52f6-8b91-379e9c8e526c";
+console.log(uuidNum);
+var newCOTELE_PARIS = [];
+for(let i=0;i<COTELE_PARIS.length;i++)
+{
+  if(COTELE_PARIS[i]['uuid']==uuidNum)
+  {
+    console.log(COTELE_PARIS[i]['name']);
+    newCOTELE_PARIS = COTELE_PARIS.splice(i, 1);
+  }
+}
+
+console.log(COTELE_PARIS);
 
 // 🎯 TODO 5: Save the favorite product
 // We declare and assign a variable called `blueJacket`
@@ -340,6 +542,10 @@ jacket.favorite = true;
 // 1. Log `blueJacket` and `jacket` variables
 // 2. What do you notice?
 
+console.log(blueJacket);
+console.log(jacket);
+console.log("Same type and value, but the blueJacket is a Favorite");
+
 // we make a new assignment again
 blueJacket = {
   'link':
@@ -355,6 +561,12 @@ blueJacket = {
 
 // 3. Update `jacket` property with `favorite` to true WITHOUT changing blueJacket properties
 
+jacket = Object.assign({}, blueJacket);
+jacket.favorite = true;
+
+console.log(blueJacket);
+console.log(jacket);
+
 /**
  * 🎬
  * The End: last thing to do
@@ -364,3 +576,22 @@ blueJacket = {
 // 🎯 LAST TODO: Save in localStorage
 // 1. Save MY_FAVORITE_BRANDS in the localStorage
 // 2. log the localStorage
+
+localStorage.clear();
+
+for(let i=0;i<MY_FAVORITE_BRANDS.length;i++)
+{
+  localStorage.setItem(MY_FAVORITE_BRANDS[i]['name'], [MY_FAVORITE_BRANDS[i]['url'],MY_FAVORITE_BRANDS[i]['price'],MY_FAVORITE_BRANDS[i]['cheapest']['url'],MY_FAVORITE_BRANDS[i]['cheapest']['price']]);
+}
+
+console.log(MY_FAVORITE_BRANDS);
+console.log(localStorage);
+
+var keyName;
+for(const key of Object.keys(MY_FAVORITE_BRANDS))
+{
+  keyName = MY_FAVORITE_BRANDS[key]['name'];
+  console.log(localStorage.getItem(keyName.toString()));
+}
+
+console.table(localStorage);
