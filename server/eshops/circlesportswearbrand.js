@@ -9,32 +9,27 @@ const cheerio = require('cheerio');
 const parse = data => {
     const $ = cheerio.load(data);
 
-    return $('.productList-container .productList')
+    return $('#product-grid .grid__item')
         .map((i, element) => {
             const name = $(element)
-                .find('.productList-title')
+                .find('.full-unstyled-link')
                 .text()
                 .trim()
-                .replace(/\s/g, ' ');
+                .replace(/\s/g, ' ')
+                .split("   ")[0];
             const price = parseInt(
                 $(element)
-                    .find('.productList-price')
+                    .find('.money')
                     .text()
+                    .split("€")[1]
             );
-            const brand = 'Dedicated';
-            let url = $(element)
-                .find('.productList-link')
-                .attr('href');
-            url = 'https://www.dedicatedbrand.com'.concat(url);
-            const photo = $(element)
-                .find('img')
-                .attr('data-src');
-
-            return {name, price, brand, url, photo};
+            const image = $(element).find('.media').children("img").attr("srcset").split("?")[0];
+            const link =  "https://shop.circlesportswear.com/".concat($(element).find('.full-unstyled-link').attr('href'))
+            const brand = "Circle Sport";
+            return {name, price, brand, link, image};
         })
         .get();
 };
-
 /**
  * Scrape all the products for a given url page
  * @param  {[type]}  url
