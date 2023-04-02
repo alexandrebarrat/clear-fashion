@@ -1,0 +1,122 @@
+/* Center all text on the page */
+body {
+    text-align: center;
+    background-color: #fef0c2;
+  }
+  
+  /* Style the heading */
+  h1 {
+    font-size: 3rem;
+    margin: 1rem;
+    color: #d46b91;
+  }
+  
+  /* Style the section headings */
+  section h2 {
+    font-size: 2rem;
+    margin: 1.5rem;
+    color: #d46b91;
+  }
+  
+  /* Style the options section */
+  #options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+  }
+  
+  #options > div {
+    margin: 0.5rem;
+  }
+  
+  #options select {
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  
+  /* Style the products section */
+  #products {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .container_product{
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1em;
+  
+  }
+  
+  .product {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+
+  .product:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+    z-index: 1;
+  }
+  
+  .product img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .product-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #1d3557;
+  }
+  
+  .product-info h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #457b9d;
+  }
+  
+  .product-info p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .product-price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #e63946;
+  }
+
+  /* Style the indicators section */
+  #indicators {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+  }
+  
+  #indicators div {
+    margin: 0.5rem;
+  }
+  
+  #indicators span {
+    font-size: 1rem;
+    margin-right: 0.5rem;
+    color: #d46b91;
+  }
+  
+  #indicators span:last-child {
+    margin-right: 0;
+  }
